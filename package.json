@@ -9,6 +9,7 @@
   "author": "Zuzanna Laska",
   "license": "ISC",
   "devDependencies": {
+    "@cypress/xpath": "^2.0.3",
     "cypress": "^12.17.2"
   }
 }
