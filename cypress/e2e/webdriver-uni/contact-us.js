@@ -1,31 +1,37 @@
 /// <reference types="Cypress" />
 
 describe("Test 'Contact Us' form via WebdriverUni", () => {
-    //positive scenario
-    it("Should be able to submit a succesful submission via 'contact us' form", () => {
-        // cy.visit("http://www.webdriveruniversity.com/Contact-Us/contactus.html")
+    before(() => {
+        cy.fixture('example').then(data => {
+            // this.data = data
+            globalThis.data = data
+        })
+    })
+
+    beforeEach(() => {
         cy.visit("http://www.webdriveruniversity.com/")
         cy.get('#contact-us').invoke('removeAttr', 'target').click({force:true})
+    })
+
+    //positive scenario
+    it("Should be able to submit a succesful submission via 'contact us' form", () => {
         cy.document().should('have.property', 'charset').and('eq', 'UTF-8')
         cy.title().should('include', 'WebDriver | Contact Us')
         cy.url().should('include', 'contactus')
         //cy.get('#contact-us').click({force: true})
-        cy.get('[name="first_name"]').type("Joe")
-        cy.get('[name="last_name"]').type("McDonald")
-        cy.get('[name="email"]').type("j.mcdonald@example.com")
-        cy.get('[name="message"]').type("lorem ipsum")
+        cy.get('[name="first_name"]').type(data.first_name)
+        cy.get('[name="last_name"]').type(data.last_name)
+        cy.get('[name="email"]').type(data.email)
+        cy.get('[name="message"]').type(data.message)
         cy.get('[type="submit"]').click()
         cy.get('h1').should('have.text', 'Thank You for your Message!')
     });
 
     //negative scenario
     it("Should not be able to submit a succesful submission via 'contact us' form as all fields are required", () => {
-        // cy.visit("http://www.webdriveruniversity.com/Contact-Us/contactus.html")
-        cy.visit("http://www.webdriveruniversity.com/")
-        cy.get('#contact-us').invoke('removeAttr', 'target').click({force:true})
-        cy.get('[name="first_name"]').type("Mary")
-        cy.get('[name="last_name"]').type("Blowfish")
-        cy.get('[name="message"]').type("lorem ipsum")
+        cy.get('[name="first_name"]').type(data.first_name)
+        cy.get('[name="last_name"]').type(data.last_name)
+        cy.get('[name="message"]').type(data.message)
         cy.get('[type="submit"]').click()
         cy.get('body').contains('Error: all fields are required')
     });
