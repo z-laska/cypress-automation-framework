@@ -18,21 +18,14 @@ describe("Test 'Contact Us' form via WebdriverUni", () => {
         cy.document().should('have.property', 'charset').and('eq', 'UTF-8')
         cy.title().should('include', 'WebDriver | Contact Us')
         cy.url().should('include', 'contactus')
-        //cy.get('#contact-us').click({force: true})
-        cy.get('[name="first_name"]').type(data.first_name)
-        cy.get('[name="last_name"]').type(data.last_name)
-        cy.get('[name="email"]').type(data.email)
-        cy.get('[name="message"]').type(data.message)
-        cy.get('[type="submit"]').click()
-        cy.get('h1').should('have.text', 'Thank You for your Message!')
+
+        cy.webdriverUni_ContactForm_Submission(data.first_name, data.last_name, data.email, data.message, 'h1', 'Thank You for your Message!')
     });
 
     //negative scenario
     it("Should not be able to submit a succesful submission via 'contact us' form as all fields are required", () => {
-        cy.get('[name="first_name"]').type(data.first_name)
-        cy.get('[name="last_name"]').type(data.last_name)
-        cy.get('[name="message"]').type(data.message)
-        cy.get('[type="submit"]').click()
-        cy.get('body').contains('Error: all fields are required')
+        cy.webdriverUni_ContactForm_Submission(data.first_name, data.last_name, '{backspace}', data.message, 'body', 'Error: all fields are required')
+        //passing {backspace} is a workaround for type() not accepting an empty string
+        // the other way would be to overwrite the type() command so that it behaves as desired when an empty string is passed as a parameter
     });
 })

@@ -1,23 +1,25 @@
 /// <reference types="Cypress" />
 
 describe("Iterate over elements", () => {
-    it("Log information of all hair care products", () => {
+    beforeEach(() => {
         cy.visit("https://automationteststore.com/")
         cy.get("a[href*='product/category&path=']").contains("Hair Care").click()
-
+    })
+    it("Log information of all hair care products", () => {
         cy.get('.fixed_wrapper .prdocutname').each(($el, index, $list) => {
             cy.log("Index: " + index + " : " + $el.text())
         })
     });
 
     it('Add specific product to basket', () => {
-        cy.visit("https://automationteststore.com/")
-        cy.get("a[href*='product/category&path=']").contains("Hair Care").click()
+        cy.selectProduct('Curls to straight Shampoo')
+    });
 
-        cy.get('.fixed_wrapper .prdocutname').each(($el, index, $list) => {
-            if($el.text().includes('Curls to straight Shampoo')) { //JQuery, so we don't use cy.wrap()
-                cy.wrap($el).click() //we don't want to use JQuery click, but cypress click command, so we need to use cy.wrap()
-            }
-        })
+    it('Add another specific product to basket', () => {
+        cy.selectProduct('Seaweed Conditioner')
+    });
+
+    it('Add yet another specific product to basket', () => {
+        cy.selectProduct('Eau Parfumee au The Vert Shampoo')
     });
 })
