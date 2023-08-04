@@ -1,10 +1,11 @@
 /// <reference types="Cypress" />
 
 describe("Handle js alerts", () => {
-    it("Confirm js alert contains the correct text", () => {
-        cy.visit("http://www.webdriveruniversity.com/")
+    beforeEach(() => {
+        cy.visit("/")
         cy.get('#popup-alerts').invoke('removeAttr', 'target').click({force:true})
-
+    })
+    it("Confirm js alert contains the correct text", () => {
         cy.get('#button1').click()
         cy.on('window:alert', (str) => {
             expect(str).to.equal('I am an alert box!')
@@ -12,9 +13,6 @@ describe("Handle js alerts", () => {
     });
 
     it("Validate js confirm alert box works correctly when clicking ok", () => {
-        cy.visit("http://www.webdriveruniversity.com/")
-        cy.get('#popup-alerts').invoke('removeAttr', 'target').click({force:true})
-
         cy.get('#button4').click()
         cy.on('window:confirm', (str) => {
             return true; //clicks OK button
@@ -23,9 +21,6 @@ describe("Handle js alerts", () => {
     });
 
     it("Validate js confirm alert box works correctly when clicking cancel", () => {
-        cy.visit("http://www.webdriveruniversity.com/")
-        cy.get('#popup-alerts').invoke('removeAttr', 'target').click({force:true})
-
         cy.get('#button4').click()
         cy.on('window:confirm', (str) => {
             return false; //clicks cancel button
@@ -34,9 +29,6 @@ describe("Handle js alerts", () => {
     });
 
     it.only("Validate js confirm alert box using a stub", () => {
-        cy.visit("http://www.webdriveruniversity.com/")
-        cy.get('#popup-alerts').invoke('removeAttr', 'target').click({force:true})
-
         const stub = cy.stub()
         cy.on('window:confirm', stub)
 

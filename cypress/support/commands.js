@@ -19,6 +19,20 @@
 //
 // -- This is a dual command --
 // Cypress.Commands.add('dismiss', { prevSubject: 'optional'}, (subject, options) => { ... })
+//
+//
+// -- This will overwrite an existing command --
+// Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
+
+
+Cypress.Commands.add("navigateToWebdriverUniHomepage", () => {
+    cy.visit("/")
+});
+
+Cypress.Commands.add("navigateToWebdriverUniCheckboxPage", () => {
+    cy.visit("/Dropdown-Checkboxes-RadioButtons/index.html")
+});
+
 Cypress.Commands.add('selectProduct', productName => {
     cy.get('.fixed_wrapper .prdocutname').each(($el, index, $list) => {
         if($el.text().includes(productName)) { //JQuery, so we don't use cy.wrap()
@@ -44,6 +58,3 @@ Cypress.Commands.add('webdriverUni_ContactForm_Submission', (firstName, lastName
     cy.get('[type="submit"]').click()
     cy.get($selector).contains(textToLocate)
 });
-
-// -- This will overwrite an existing command --
-// Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })

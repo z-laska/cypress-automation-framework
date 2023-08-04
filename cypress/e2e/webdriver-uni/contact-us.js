@@ -9,8 +9,7 @@ describe("Test 'Contact Us' form via WebdriverUni", () => {
     })
 
     beforeEach(() => {
-        cy.visit("http://www.webdriveruniversity.com/")
-        cy.get('#contact-us').invoke('removeAttr', 'target').click({force:true})
+        cy.visit(Cypress.env("webdriveruni_homepage") + "/Contact-Us/contactus.html")
     })
 
     //positive scenario
@@ -19,7 +18,7 @@ describe("Test 'Contact Us' form via WebdriverUni", () => {
         cy.title().should('include', 'WebDriver | Contact Us')
         cy.url().should('include', 'contactus')
 
-        cy.webdriverUni_ContactForm_Submission(data.first_name, data.last_name, data.email, data.message, 'h1', 'Thank You for your Message!')
+        cy.webdriverUni_ContactForm_Submission(Cypress.env("first_name"), data.last_name, data.email, data.message, 'h1', 'Thank You for your Message!')
     });
 
     //negative scenario

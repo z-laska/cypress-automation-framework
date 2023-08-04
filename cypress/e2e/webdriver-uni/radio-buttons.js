@@ -3,7 +3,7 @@
 describe("Verify radio buttons via webdriveruni", () => {
     //in cypress v.12 we need beforeEach - everything is cleared between tests!
     beforeEach(() => {
-        cy.visit("http://www.webdriveruniversity.com/")
+        cy.visit("/")
         cy.get('#dropdown-checkboxes-radiobuttons').invoke('removeAttr', 'target').click({force:true}) 
     })
 
