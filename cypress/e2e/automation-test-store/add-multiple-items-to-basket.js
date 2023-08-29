@@ -1,6 +1,11 @@
+import AutoStore_Homepage_PO from "../../support/pageObjects/automation-test-store/AutoStore_Homepage_PO"
+import AutoStore_HairCare_PO from "../../support/pageObjects/automation-test-store/AutoStore_HairCare_PO"
 /// <reference types="Cypress" />
 
 describe("Add multiple items to basket", () => {
+    const autoStore_Homepage_PO = new AutoStore_Homepage_PO();
+    const autoStore_HairCare_PO = new AutoStore_HairCare_PO();
+
     before(() => {
         cy.fixture("products").then(data => {
             globalThis.data = data
@@ -8,16 +13,12 @@ describe("Add multiple items to basket", () => {
     })
 
     beforeEach(() => {
-        cy.visit("https://automationteststore.com/")
-        cy.get("a[href*='product/category&path=']").contains("Hair Care").click()
+        autoStore_Homepage_PO.visitHomepage();
+        autoStore_Homepage_PO.clickOnHairCareLink();
     })
+
     it("Add specific items to basket", () => {
-        globalThis.data.productName.forEach(element => {
-            cy.addProductToBasket(element)
-        })
-        // wouldn't it be more efficient to create a custom command that has a list/array of product names as an argument
-        // which would iterate over elements and check if the list of product names includes the current element's name?
-        cy.get('.dropdown-toggle > .fa').click()
+        autoStore_HairCare_PO.addHairCareProductsToBasket();
     });
 
 })
