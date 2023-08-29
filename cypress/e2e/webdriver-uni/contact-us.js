@@ -3,6 +3,7 @@ import Contact_Us_PO from '../../support/pageObjects/webdriver-uni/Contact_Us_PO
 /// <reference types="Cypress" />
 
 describe("Test 'Contact Us' form via WebdriverUni", () => {
+    Cypress.config('defaultCommandTimeout', 20000);
     const homepage_PO = new Homepage_PO();
     const contact_Us_PO = new Contact_Us_PO();
     before(() => {
@@ -15,7 +16,9 @@ describe("Test 'Contact Us' form via WebdriverUni", () => {
     beforeEach(() => {
         // cy.visit(Cypress.env("webdriveruni_homepage") + "/Contact-Us/contactus.html")
         homepage_PO.visitHomepage();
+        cy.wait(3000);
         homepage_PO.clickOnContactUsButton();
+        // cy.pause();
     });
 
     //positive scenario
