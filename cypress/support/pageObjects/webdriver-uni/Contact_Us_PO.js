@@ -5,7 +5,9 @@ class Contact_Us_PO {
         cy.get('[name="email"]').type(email);
         cy.get('[name="message"]').type(message);
         cy.get('[type="submit"]').click();
-        cy.get($selector).contains(textToLocate, {timeout: 60000});
+        cy.get($selector).contains(textToLocate, {timeout: 5000});
+        cy.screenshot(); // deafult filename
+        cy.screenshot("Make a contact us form submission"); // custom filename
     };
 }
 export default Contact_Us_PO;

@@ -13,6 +13,8 @@ describe("Add multiple items to basket", () => {
     })
 
     beforeEach(() => {
+        cy.clearLocalStorage();
+        cy.clearCookies(); // unnecesarry, cookies are cleared automatically before every test
         autoStore_Homepage_PO.visitHomepage();
         autoStore_Homepage_PO.clickOnHairCareLink();
     })
