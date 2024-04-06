@@ -7,13 +7,19 @@
     "triggerAllTests-headless": "npx cypress run",
     "triggerAllTests-headed": "npx cypress run --headed",
     "triggerAllTests-chrome": "npx cypress run --browser chrome",
-    "triggerAllTests-dashboard": "npx cypress run --record --key",
-    "triggerAllTests-webdriveruni": "npx cypress run --spec cypress/e2e/webdriver-uni/*"
+    "triggerAllTests-dashboard": "npx cypress run --record --0a5680fd-d9dd-4d48-a70a-d64d163746e4",
+    "triggerAllTests-webdriveruni": "npx cypress run --spec cypress/e2e/webdriver-uni/*",
+    "junit-merge": "npx junit-merge -d cypress/results/junit -o cypress/results/junit/results.xml",
+    "delete-junit-report": "rm -rf cypress/results/junit/results.xml",
+    "delete-results": "rm -rf cypress/results/* || true",
+    "delete-junit-partial-results": "rm -rf cypress/results/junit/results-* || true"
   },
   "author": "Zuzanna Laska",
   "license": "ISC",
   "devDependencies": {
     "@cypress/xpath": "^2.0.3",
-    "cypress": "^13.1.0"
+    "cypress": "^13.7.2",
+    "cypress-multi-reporters": "^1.6.4",
+    "mocha-junit-reporter": "^2.2.1"
   }
 }
